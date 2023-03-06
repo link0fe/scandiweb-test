@@ -1,0 +1,17 @@
+.myInput {
+  width: 100%;
+  padding: 5px 15px;
+  margin: 5px 0;
+  border: 1px solid #141414;
+}
+
+.myInput[type="checkbox"] {
+  width: 20%;
+  margin: 20px 0 5px 0;
+  height: 20px;
+}
+
+.myInput[type="checkbox"]:checked {
+  border: solid 2px purple;
+  color: purple;
+}
