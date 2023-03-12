@@ -45,9 +45,9 @@ const Products = () => {
   //   }
   // }
 
-  // if (loading) {
-  //   return <div className="main">LOADING ....</div>;
-  // }
+  if (loading) {
+    return <div className="main">LOADING ....</div>;
+  }
 
   return (
     <div className="main">

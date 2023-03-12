@@ -14,6 +14,7 @@ export const storeContext = React.createContext({
   discsType: [],
   furnitureType: [],
   getProducts: () => {},
+  setLoading: () => {},
   loading: false,
 });
 
@@ -51,7 +52,7 @@ function App() {
     }
   }
 
-  const storeValue = { ...product, getProducts, loading };
+  const storeValue = { ...product, getProducts, loading, setLoading };
 
   return (
     <div className="App">
