@@ -12,7 +12,10 @@ const TypeDisc = forwardRef((props, ref) => {
   }));
 
   return (
-    <div id="productType">
+    <div
+      id="productType"
+      style={{ displaY: "grid", gridTemplateColumns: "1fr 1fr" }}
+    >
       <label>Disc size :</label>
       <MyInput
         type="number"

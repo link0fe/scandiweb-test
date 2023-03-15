@@ -4,8 +4,11 @@ import MyButton from "../button/MyButton";
 
 const Footer = () => {
   return (
-    <div className="footer" style={{ textAlign: "center", paddingTop: "30px" }}>
-      Scandiweb
+    <div
+      className="footer"
+      style={{ textAlign: "center", paddingTop: "35px", paddingBottom: "35px" }}
+    >
+      Scandiweb Test Assignment
     </div>
   );
 };

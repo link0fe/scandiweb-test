@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
-import ProductList from "../components/ProductList";
+import React, { useEffect } from "react";
 import "../styles/App.css";
-import axios from "axios";
 import Books from "../components/Layouts/Books";
 import Furniture from "../components/Layouts/Furniture";
 import Discs from "../components/Layouts/Discs";
@@ -10,51 +8,33 @@ import { storeContext } from "../App";
 const Products = () => {
   const { getProducts, loading, booksType, discsType, furnitureType } =
     React.useContext(storeContext);
-  // const [product, setProduct] = useState({
-  //   booksType: [],
-  //   discsType: [],
-  //   furnitureType: [],
-  // });
-  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getProducts();
   }, []);
 
-  // async function getProducts() {
-  //   setLoading(true);
-
-  //   const promises = [
-  //     axios.get("http://scandibackend?name=books"),
-  //     axios.get("http://scandibackend?name=discs"),
-  //     axios.get("http://scandibackend?name=furniture"),
-  //   ];
-  //   try {
-  //     const response = await Promise.all(promises);
-  //     setProduct({
-  //       booksType: response[0].data,
-  //       discsType: response[1].data,
-  //       furnitureType: response[2].data,
-  //     });
-
-  //     setLoading(false);
-  //     console.log(response);
-  //     console.log("test result: " + response.data);
-  //   } catch (e) {
-  //     alert(e);
-  //   }
-  // }
-
   if (loading) {
-    return <div className="main">LOADING ....</div>;
+    return (
+      <div className="main" style={{ textAlign: "center" }}>
+        <h1
+          style={{
+            textAlign: "center",
+            height: "100%",
+          }}
+        >
+          LOADING ....
+        </h1>
+      </div>
+    );
   }
 
   return (
     <div className="main">
-      <Books products={booksType} title="Books" />
-      <Discs products={discsType} title="Discs" />
-      <Furniture products={furnitureType} title="Furniure" />
-      {/* pass arr? */}
+      {booksType.length > 0 && <Books products={booksType} title="Books" />}
+      {discsType.length > 0 && <Discs products={discsType} title="Discs" />}
+      {furnitureType.length > 0 && (
+        <Furniture products={furnitureType} title="Furniure" />
+      )}
     </div>
   );
 };

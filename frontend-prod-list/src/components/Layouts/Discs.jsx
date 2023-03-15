@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Slider from "react-slick";
 import ProductItem from "../ProductItem";
-import axios from "axios";
 
 const Discs = ({ products, title }) => {
-  //do settings as cfg
-
   const settings = {
     dots: false,
     adaptiveHeight: true,
@@ -35,7 +32,7 @@ const Discs = ({ products, title }) => {
 
   return (
     <div className="product__slider">
-      <h1 style={{ textAlign: "center" }}>{title} 💾</h1>
+      <h1 style={{ textAlign: "center" }}>Discs 💾</h1>
       <Slider {...settings}>
         {products?.map((product) => (
           <ProductItem product={product} key={product.id} prodType={title}>

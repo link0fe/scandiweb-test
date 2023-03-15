@@ -19,7 +19,10 @@ const TypeFurniture = forwardRef((props, ref) => {
   }));
 
   return (
-    <div id="productType">
+    <div
+      id="productType"
+      style={{ displaY: "grid", gridTemplateColumns: "1fr 2fr" }}
+    >
       <label>Width :</label>
       <MyInput
         type="number"

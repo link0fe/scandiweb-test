@@ -7,42 +7,26 @@ import TypeFurniture from "./TypeFurniture";
 import TypeBook from "./TypeBook";
 import { useRef } from "react";
 import axios from "axios";
+import { storeContext } from "../../App";
 
-const BaseProductForm = (props) => {
-  const [selectedType, setSelectedType] = useState("");
-  const [sku, setSku] = useState("");
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  // set id by getting from backend ? state setType id ?
+const BaseProductForm = () => {
+  const {
+    formRef,
+    setSku,
+    setName,
+    setPrice,
+    sku,
+    name,
+    price,
+    selectedType,
+    setSelectedType,
+  } = React.useContext(storeContext);
 
-  const typeRef = useRef();
   const selectMap = new Map([
-    ["1", <TypeBook ref={typeRef} />],
-    ["2", <TypeDisc ref={typeRef} />],
-    ["3", <TypeFurniture ref={typeRef} />],
+    ["1", <TypeBook ref={formRef} />],
+    ["2", <TypeDisc ref={formRef} />],
+    ["3", <TypeFurniture ref={formRef} />],
   ]);
-
-  const addNewProduct = async (e) => {
-    e.preventDefault();
-    const getTypeData = typeRef.current.getFormData();
-
-    const newProduct = {
-      //id: Date.now(),
-      sku,
-      name,
-      price,
-      ...getTypeData,
-      category_id: selectedType,
-    };
-
-    console.log(newProduct);
-    try {
-      const response = await axios.post("http://scandibackend", newProduct);
-      console.log(response);
-    } catch (e) {
-      alert(e);
-    }
-  };
 
   const handleChangeType = (type) => {
     setSelectedType(type);
@@ -51,57 +35,71 @@ const BaseProductForm = (props) => {
 
   selectMap.get(selectedType);
   return (
-    <form onSubmit={addNewProduct} id="product_form">
-      {/* space between  and in the right side create example of created product */}
-      <ul>
-        <li>
-          <label>SKU</label>
-          <MyInput
-            value={sku}
-            onChange={(e) => setSku(e.target.value)}
-            type="text"
-            id="sku"
-            placeholder="SKU"
-          />
-        </li>
-        <li>
-          <label>Name</label>
-          <MyInput
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            type="text"
-            id="name"
-            placeholder="Name"
-          />
-        </li>
-        <li>
-          <label>Price</label>
-          <MyInput
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            type="text"
-            id="price"
-            placeholder="Price"
-          />
-        </li>
-        <li>
-          <MySelect
-            value={selectedType}
-            onChange={handleChangeType}
-            defaultValue="Product Type"
-            options={[
-              //value change to id 1 or 2 or 3
-              { value: "1", type: "Book", id: 1 },
-              { value: "2", type: "Disc", id: 2 },
-              { value: "3", type: "Furniture", id: 3 },
-            ]}
-          />
-        </li>
-        <li>
-          <MyButton type="submit">Create</MyButton>
-        </li>
-        <div className="product_type__form">{selectMap.get(selectedType)}</div>
-      </ul>
+    <form id="product_form">
+      <div>
+        <fieldset style={{}}>
+          <div>
+            <div>
+              <label>SKU</label>
+            </div>
+            <div>
+              <MyInput
+                value={sku}
+                onChange={(e) => setSku(e.target.value)}
+                type="text"
+                id="sku"
+                placeholder="SKU"
+              />
+            </div>
+          </div>
+
+          <div>
+            <div>
+              <label>Name</label>
+            </div>
+            <div>
+              <MyInput
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                type="text"
+                id="name"
+                placeholder="Name"
+              />
+            </div>
+            <div class="validation"></div>
+          </div>
+
+          <div>
+            <div>
+              <label>Price</label>
+            </div>
+            <div>
+              <MyInput
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                type="text"
+                id="price"
+                placeholder="Price"
+              />
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr" }}>
+        <label for="productType">Product type:</label>
+        <MySelect
+          value={selectedType}
+          onChange={handleChangeType}
+          defaultValue="Product Type"
+          options={[
+            { value: "1", type: "Book", id: 1 },
+            { value: "2", type: "Disc", id: 2 },
+            { value: "3", type: "Furniture", id: 3 },
+          ]}
+        />
+      </div>
+
+      <div className="product_type__form">{selectMap.get(selectedType)}</div>
     </form>
   );
 };

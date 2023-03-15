@@ -8,13 +8,6 @@ html {
   height: 100%;
 }
 
-/*#root { 
-    display: flex;
-    justify-content: center;
-    flex-direction: column; 
-    align-items: center; 
-   
-}*/
 body {
   background-color: lightgray;
 }
@@ -30,9 +23,9 @@ body {
 }
 
 #product_form {
-  display: flex;
-  border: 2px solid #141414;
   width: 100%;
+  min-height: calc(100vh - 150px);
+  padding: 3rem 2rem 3rem 2rem;
 }
 
 .product_type__form {
@@ -41,8 +34,9 @@ body {
 
 li {
   width: 100%;
-  display: flex;
   list-style-type: none;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
 }
 
 .product__slider {
@@ -54,31 +48,14 @@ li {
   padding-bottom: 15px;
 }
 
-#productType {
-  margin-top: 2;
-  max-width: 400px;
-  border: 2px solid #000;
-}
-/*
-.container { 
-  
-}
- 
-.cards {
-  padding: 40px 40px;
-  border: 2px solid teal;
-  justify-content: space-between;
-  align-items: center;
-}
-*/
-
 label {
   font-size: 1vw;
   text-align: center;
   padding: 10px;
 }
 
-p {
+fieldset label {
+  text-align: right;
 }
 
 input[type="checkbox"] {
@@ -109,7 +86,7 @@ input[type="checkbox"] {
 /* For the demo */
 .slick-prev,
 .slick-next {
-  z-index: 999 !important;
+  z-index: 3 !important;
 }
 .slick-prev {
   left: 25px !important;
@@ -117,27 +94,6 @@ input[type="checkbox"] {
 .slick-next {
   right: 25px !important;
 }
-
-/*.post {
-    display: flex;
-    padding: 15px;
-    border: 2px solid teal;
-    margin-top:15px;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: 'wrap';
-    gap: 50px;
-
-}
-
-.post__content {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    
-}*/
 
 .navbar {
   display: flex;
@@ -148,4 +104,10 @@ input[type="checkbox"] {
 
 .navbar__links {
   margin-left: auto;
+}
+
+#productType {
+  margin-top: 2;
+  max-width: 400px;
+  border: 2px solid #000;
 }

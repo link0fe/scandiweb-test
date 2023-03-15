@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Slider from "react-slick";
 import ProductItem from "../ProductItem";
-import axios from "axios";
 
 const Furniture = ({ products, title }) => {
-  //do settings as cfg
-
   const settings = {
     dots: false,
     adaptiveHeight: true,
@@ -41,9 +38,9 @@ const Furniture = ({ products, title }) => {
           <ProductItem product={product} key={product.id} prodType={title}>
             {"Dimension: " +
               product.height +
-              " x " +
+              "x" +
               product.width +
-              " x " +
+              "x" +
               product.length +
               " cm"}
           </ProductItem>

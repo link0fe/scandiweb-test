@@ -10,7 +10,10 @@ const TypeBook = forwardRef((props, ref) => {
     },
   }));
   return (
-    <div id="productType">
+    <div
+      id="productType"
+      style={{ displaY: "grid", gridTemplateColumns: "1fr 1fr" }}
+    >
       <label>weight</label>
       <MyInput
         type="number"
@@ -21,7 +24,5 @@ const TypeBook = forwardRef((props, ref) => {
     </div>
   );
 });
-
-//fetch data _> SELECT ALL PRODUCTS( type book => property_id = id_books)
 
 export default TypeBook;
