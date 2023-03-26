@@ -30,6 +30,7 @@ const Books = ({ products, title }) => {
     ],
   };
 
+  console.log(products);
   return (
     <div className="product__slider">
       <h1 style={{ textAlign: "center" }}>Books📚</h1>

@@ -12,7 +12,7 @@ const TypeBook = forwardRef((props, ref) => {
   return (
     <div
       id="productType"
-      style={{ displaY: "grid", gridTemplateColumns: "1fr 1fr" }}
+      style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}
     >
       <label>weight</label>
       <MyInput

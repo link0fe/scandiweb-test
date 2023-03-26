@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useReducer } from "react";
 import Navbar from "./components/UI/Navbar/Navbar";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import "./styles/test.css";
@@ -9,32 +9,13 @@ import AddProduct from "./pages/AddProduct";
 import Products from "./pages/Products";
 import axios from "axios";
 import AppRouter from "./components/AppRouter";
+import { reducer } from "./reducer";
+import { initialState } from "./reducer";
 
-export const storeContext = React.createContext({
-  booksType: [],
-  discsType: [],
-  furnitureType: [],
-  getProducts: () => {},
-  setLoading: () => {},
-  loading: false,
-  sendNewProduct: () => {},
-  formRef: {},
-  setSku: () => {},
-  setName: () => {},
-  setPrice: () => {},
-  sku: "",
-  name: "",
-  price: "",
-  addNewProduct: () => {},
-  setSelectedType: () => {},
-  selectedType: 0,
-});
+export const storeContext = React.createContext(initialState);
 
 function App() {
-  const [sku, setSku] = useState("");
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [selectedType, setSelectedType] = useState("");
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const [product, setProduct] = useState({
     booksType: [],
@@ -48,14 +29,15 @@ function App() {
   const addNewProduct = async (e) => {
     e.preventDefault();
     const getTypeData = formRef.current.getFormData();
+    console.log(state.sku);
 
     const newProduct = {
       //id: Date.now(),
-      sku,
-      name,
-      price,
+      sku: state.sku,
+      name: state.name,
+      price: state.price,
       ...getTypeData,
-      category_id: selectedType,
+      category_id: state.selectedType,
     };
     console.log(newProduct);
     try {
@@ -76,31 +58,41 @@ function App() {
     ];
     try {
       const response = await Promise.all(promises);
-      setProduct({
-        booksType: response[0].data,
-        discsType: response[1].data,
-        furnitureType: response[2].data,
-      });
+
+      // setProduct({
+      //   booksType: response[0].data,
+      //   discsType: response[1].data,
+      //   furnitureType: response[2].data,
+      // });
+
+      if (response[0].data.length > 0) {
+        dispatch({ type: "booksType", payload: response[0].data });
+      }
+      // dispatch({
+      //   type: "setProduct",
+      //   payload: response[0].data,
+      // });
+      // dispatch({
+      //   type: "discsType",
+      //   payload: response[1].data,
+      // });
+      // dispatch({
+      //   type: "furnitureType",
+      //   payload: response[2].data,
+      // });
+
       setLoading(false);
     } catch (e) {
       alert(e);
     }
   }
   const storeValue = {
-    ...product,
-    getProducts,
-    loading,
-    setLoading,
+    state,
+    dispatch,
     formRef,
-    setSku,
-    setName,
-    setPrice,
-    sku,
-    name,
-    price,
+    getProducts,
+    setLoading,
     addNewProduct,
-    setSelectedType,
-    selectedType,
   };
 
   return (

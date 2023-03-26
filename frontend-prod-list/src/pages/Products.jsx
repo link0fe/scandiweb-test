@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
 import "../styles/App.css";
 import Books from "../components/Layouts/Books";
 import Furniture from "../components/Layouts/Furniture";
 import Discs from "../components/Layouts/Discs";
 import { storeContext } from "../App";
+import { reducer } from "../reducer";
 
 const Products = () => {
-  const { getProducts, loading, booksType, discsType, furnitureType } =
-    React.useContext(storeContext);
+  const { getProducts, state, dispatch } = React.useContext(storeContext);
 
   useEffect(() => {
     getProducts();
   }, []);
 
-  if (loading) {
+  if (state.loading) {
     return (
       <div className="main" style={{ textAlign: "center" }}>
         <h1
@@ -27,13 +27,18 @@ const Products = () => {
       </div>
     );
   }
+  console.log(state.booksType);
 
   return (
     <div className="main">
-      {booksType.length > 0 && <Books products={booksType} title="Books" />}
-      {discsType.length > 0 && <Discs products={discsType} title="Discs" />}
-      {furnitureType.length > 0 && (
-        <Furniture products={furnitureType} title="Furniure" />
+      {state.booksType.length > 0 && (
+        <Books products={state.booksType} title="Books" />
+      )}
+      {state.discsType.length > 0 && (
+        <Discs products={state.discsType} title="Discs" />
+      )}
+      {state.furnitureType.length > 0 && (
+        <Furniture products={state.furnitureType} title="Furniure" />
       )}
     </div>
   );
