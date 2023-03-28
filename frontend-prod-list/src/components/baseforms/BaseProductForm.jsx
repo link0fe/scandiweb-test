@@ -1,14 +1,10 @@
-import React, { useState, useReducer } from "react";
+import React from "react";
 import MyInput from "../UI/input/MyInput";
-import MyButton from "../UI/button/MyButton";
 import MySelect from "../UI/select/MySelect";
 import TypeDisc from "./TypeDisc";
 import TypeFurniture from "./TypeFurniture";
 import TypeBook from "./TypeBook";
-import { useRef } from "react";
-import axios from "axios";
 import { storeContext } from "../../App";
-import { reducer } from "../../reducer";
 
 const BaseProductForm = () => {
   const { formRef, state, dispatch } = React.useContext(storeContext);
@@ -21,12 +17,8 @@ const BaseProductForm = () => {
 
   const handleChangeType = (typeId) => {
     dispatch({ type: "selectedType", payload: typeId });
-    // setSelectedType(typeId);
-    console.log(typeId);
   };
-
   selectMap.get(state.selectedType);
-  console.log(state);
 
   return (
     <form id="product_form">

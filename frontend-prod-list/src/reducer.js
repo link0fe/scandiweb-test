@@ -9,9 +9,8 @@ export const initialState = {
   furnitureType: [],
   loading: false,
   getProducts: () => {},
-  setLoading: () => {},
   sendNewProduct: () => {},
-  addNewProduct: () => {},
+  // addNewProduct: () => {},
 };
 
 export const reducer = (state, action) => {
@@ -50,6 +49,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         furnitureType: action.payload,
+      };
+    case "loading":
+      return {
+        ...state,
+        loading: action.payload,
       };
     default:
       return state;

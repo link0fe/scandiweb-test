@@ -1,17 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { storeContext } from "../App";
 
 const ProductItem = ({ product, children, prodType }) => {
-  //test
   const [isChecked, setIsChecked] = useState(false);
-  const { getProducts, loading, booksType, discsType, furnitureType } =
-    React.useContext(storeContext);
-
-  // const eventCheckHandler = (event) => {
-  //   setIsChecked(!isChecked);
-  //   product.isChecked = event.target.checked;
-  // };
 
   return (
     <div className="product">
@@ -28,7 +19,6 @@ const ProductItem = ({ product, children, prodType }) => {
           }}
         />
         <label for={product.id}>
-          <p>{product.id}</p>
           <p>{product.sku}</p>
           <p>{product.name}</p>
           <p>{product.price}$</p>

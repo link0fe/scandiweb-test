@@ -1,22 +1,45 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import MyButton from "../button/MyButton";
 import { storeContext } from "../../../App";
 import axios from "axios";
 
 const Navbar = () => {
-  const {
-    booksType,
-    discsType,
-    furnitureType,
-    getProducts,
-    loading,
-    setLoading,
-    addNewProduct,
-  } = React.useContext(storeContext);
+  const { state, dispatch, getProducts, formRef } =
+    React.useContext(storeContext);
+
+  const nav = useNavigate();
+
+  const addNewProduct = async (e) => {
+    e.preventDefault();
+    const getTypeData = formRef.current.getFormData();
+
+    const newProduct = {
+      sku: state.sku,
+      name: state.name,
+      price: state.price,
+      ...getTypeData,
+      category_id: state.selectedType,
+    };
+    console.log(newProduct);
+    try {
+      const response = await axios.post("http://scandibackend", newProduct);
+      const {
+        data: { status },
+      } = response;
+      if (status != 409) nav("products");
+    } catch (e) {
+      alert(e);
+    }
+    // window.location.href = "http://localhost:3000/products";
+  };
 
   const deleteProduct = async () => {
-    const arr = [...booksType, ...discsType, ...furnitureType];
+    const arr = [
+      ...state.booksType,
+      ...state.discsType,
+      ...state.furnitureType,
+    ];
     const indexArr = [];
     arr.map((element) => {
       if (element.isChecked) indexArr.push(element.id);
@@ -24,11 +47,12 @@ const Navbar = () => {
 
     try {
       if (indexArr.length > 0) {
-        setLoading(true);
+        dispatch({ type: "loading", payload: true });
         const response = await axios.delete(
           `http://scandibackend/?id=${indexArr}`
         );
         if (response.status === 200) {
+          alert(response);
           getProducts();
         }
       } else {
@@ -61,7 +85,9 @@ const Navbar = () => {
           </div>
         ) : (
           <div>
-            <MyButton onClick={addNewProduct}>Save</MyButton>
+            <Link to="/products">
+              <MyButton onClick={addNewProduct}>Save</MyButton>
+            </Link>
             <Link to="/products">
               <MyButton>Close</MyButton>
             </Link>

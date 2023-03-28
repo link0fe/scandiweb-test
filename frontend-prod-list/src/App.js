@@ -1,55 +1,24 @@
-import React, { useState, useRef, useReducer } from "react";
+import React, { useRef, useReducer } from "react";
 import Navbar from "./components/UI/Navbar/Navbar";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import "./styles/test.css";
 import Footer from "./components/UI/Footer/Footer";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import AddProduct from "./pages/AddProduct";
-import Products from "./pages/Products";
 import axios from "axios";
 import AppRouter from "./components/AppRouter";
 import { reducer } from "./reducer";
 import { initialState } from "./reducer";
+import Main from "./pages/Main";
 
 export const storeContext = React.createContext(initialState);
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  const [product, setProduct] = useState({
-    booksType: [],
-    discsType: [],
-    furnitureType: [],
-  });
-  const [loading, setLoading] = useState(true);
-
   const formRef = useRef();
 
-  const addNewProduct = async (e) => {
-    e.preventDefault();
-    const getTypeData = formRef.current.getFormData();
-    console.log(state.sku);
-
-    const newProduct = {
-      //id: Date.now(),
-      sku: state.sku,
-      name: state.name,
-      price: state.price,
-      ...getTypeData,
-      category_id: state.selectedType,
-    };
-    console.log(newProduct);
-    try {
-      const response = await axios.post("http://scandibackend", newProduct);
-      console.log(response);
-    } catch (e) {
-      alert(e);
-    }
-  };
-
   async function getProducts() {
-    setLoading(true);
+    dispatch({ type: "loading", payload: true });
 
     const promises = [
       axios.get("http://scandibackend?name=books"),
@@ -59,54 +28,34 @@ function App() {
     try {
       const response = await Promise.all(promises);
 
-      // setProduct({
-      //   booksType: response[0].data,
-      //   discsType: response[1].data,
-      //   furnitureType: response[2].data,
-      // });
-
       if (response[0].data.length > 0) {
         dispatch({ type: "booksType", payload: response[0].data });
       }
-      // dispatch({
-      //   type: "setProduct",
-      //   payload: response[0].data,
-      // });
-      // dispatch({
-      //   type: "discsType",
-      //   payload: response[1].data,
-      // });
-      // dispatch({
-      //   type: "furnitureType",
-      //   payload: response[2].data,
-      // });
-
-      setLoading(false);
+      if (response[1].data.length > 0) {
+        dispatch({ type: "discsType", payload: response[1].data });
+      }
+      if (response[2].data.length > 0) {
+        dispatch({ type: "furnitureType", payload: response[2].data });
+      }
+      dispatch({ type: "loading", payload: false });
     } catch (e) {
       alert(e);
     }
   }
+
   const storeValue = {
     state,
     dispatch,
     formRef,
     getProducts,
-    setLoading,
-    addNewProduct,
   };
+  console.log(storeValue);
 
   return (
     <div className="App">
       <storeContext.Provider value={storeValue}>
         <BrowserRouter>
-          <Navbar />
-          <hr />
-          {/* <Routes>
-            <Route path="/products" element={<Products />} />
-            <Route path="/addproduct" element={<AddProduct />} />
-            <Route path="/*" element={<Navigate to="/products" replace />} />
-          </Routes> */}
-          <AppRouter />
+          <Main />
         </BrowserRouter>
         <hr />
         <Footer />
