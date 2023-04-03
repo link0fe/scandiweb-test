@@ -27,7 +27,6 @@ const Products = () => {
       </div>
     );
   }
-  console.log(state.booksType);
 
   return (
     <div className="main">

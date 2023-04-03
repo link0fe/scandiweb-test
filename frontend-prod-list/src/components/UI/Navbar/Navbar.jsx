@@ -21,17 +21,18 @@ const Navbar = () => {
       ...getTypeData,
       category_id: state.selectedType,
     };
-    console.log(newProduct);
+
     try {
       const response = await axios.post("http://scandibackend", newProduct);
       const {
         data: { status },
       } = response;
+      dispatch({ type: "validation", payload: response.data.message });
+      console.log(state.validation);
       if (status != 409) nav("products");
     } catch (e) {
       alert(e);
     }
-    // window.location.href = "http://localhost:3000/products";
   };
 
   const deleteProduct = async () => {
@@ -64,8 +65,6 @@ const Navbar = () => {
   };
 
   const location = useLocation();
-  const isProductPage = location.pathname === "/products";
-
   return (
     <div className="navbar">
       {location.pathname === "/products" ? (
@@ -89,7 +88,7 @@ const Navbar = () => {
               <MyButton onClick={addNewProduct}>Save</MyButton>
             </Link>
             <Link to="/products">
-              <MyButton>Close</MyButton>
+              <MyButton style={{ background: "darkred" }}>Close</MyButton>
             </Link>
           </div>
         )}

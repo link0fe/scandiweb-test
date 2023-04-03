@@ -1,0 +1,11 @@
+.mySelect {
+  width: 60%;
+}
+
+.mySelect:required:valid {
+  border-color: green;
+}
+
+.mySelect:required:invalid {
+  border-color: red;
+}

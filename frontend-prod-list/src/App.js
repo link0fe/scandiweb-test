@@ -1,5 +1,5 @@
 import React, { useRef, useReducer } from "react";
-import Navbar from "./components/UI/Navbar/Navbar";
+
 import { BrowserRouter } from "react-router-dom";
 import "./styles/test.css";
 import Footer from "./components/UI/Footer/Footer";
@@ -10,6 +10,7 @@ import AppRouter from "./components/AppRouter";
 import { reducer } from "./reducer";
 import { initialState } from "./reducer";
 import Main from "./pages/Main";
+import "./styles/App.css";
 
 export const storeContext = React.createContext(initialState);
 
@@ -49,7 +50,6 @@ function App() {
     formRef,
     getProducts,
   };
-  console.log(storeValue);
 
   return (
     <div className="App">

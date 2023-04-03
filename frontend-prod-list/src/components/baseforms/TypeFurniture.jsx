@@ -21,29 +21,47 @@ const TypeFurniture = forwardRef((props, ref) => {
   return (
     <div
       id="productType"
-      style={{ displaY: "grid", gridTemplateColumns: "1fr 2fr" }}
+      className="grid grid-cols-[auto_1fr] items-center leading-tight gap-4 pt-6"
     >
-      <label>Width :</label>
-      <MyInput
-        type="number"
-        value={typeWidth}
-        placeholder="Type width"
-        onChange={(e) => setTypeWidth(e.target.value)}
-      />
-      <label>height :</label>
-      <MyInput
-        type="number"
-        value={typeHeigth}
-        onChange={(e) => setTypeHeigth(e.target.value)}
-        placeholder="Type height"
-      />
-      <label>length :</label>
-      <MyInput
-        type="number"
-        value={typeLength}
-        onChange={(e) => setTypeLength(e.target.value)}
-        placeholder="Type length"
-      />
+      <span>
+        <label>Width :</label>
+      </span>
+      <div>
+        <MyInput
+          className="w-full"
+          type="number"
+          value={typeWidth}
+          placeholder="Type width"
+          onChange={(e) => setTypeWidth(e.target.value)}
+          required
+        />
+      </div>
+      <span>
+        <label>height</label>
+      </span>
+      <div>
+        <MyInput
+          className="w-full"
+          type="number"
+          value={typeHeigth}
+          onChange={(e) => setTypeHeigth(e.target.value)}
+          placeholder="Type height"
+          required
+        />
+      </div>
+      <span>
+        <label>length :</label>
+      </span>
+      <div>
+        <MyInput
+          className="w-full"
+          type="number"
+          value={typeLength}
+          onChange={(e) => setTypeLength(e.target.value)}
+          placeholder="Type length"
+          required
+        />
+      </div>
     </div>
   );
 });

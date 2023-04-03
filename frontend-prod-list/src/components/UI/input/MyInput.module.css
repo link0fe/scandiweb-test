@@ -1,7 +1,5 @@
 .myInput {
-  width: 60%;
   padding: 5px 15px;
-  margin: 5px 0;
   border: 1px solid #141414;
 }
 
@@ -14,4 +12,24 @@
 .myInput[type="checkbox"]:checked {
   border: solid 2px purple;
   color: purple;
+}
+
+.myInput:required:valid {
+  border-color: green;
+}
+
+.myInput:required:invalid {
+  border-color: red;
+}
+
+.myInput:focus:invalid {
+  background: url("https://assets.digitalocean.com/labs/icons/exclamation-triangle-fill.svg")
+    no-repeat 95% 50% lightsalmon;
+  background-size: 25px;
+}
+
+input:required:focus:valid {
+  background: url("https://assets.digitalocean.com/labs/icons/hand-thumbs-up.svg")
+    no-repeat 95% 50% lightgreen;
+  background-size: 25px;
 }

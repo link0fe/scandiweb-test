@@ -3,6 +3,7 @@ export const initialState = {
   name: "",
   price: "",
   selectedType: "",
+  validation: "",
   booksType: [],
   discsType: [],
   formRef: {},
@@ -54,6 +55,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         loading: action.payload,
+      };
+    case "validation":
+      return {
+        ...state,
+        validation: action.payload,
       };
     default:
       return state;

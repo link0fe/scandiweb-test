@@ -12,15 +12,21 @@ const TypeBook = forwardRef((props, ref) => {
   return (
     <div
       id="productType"
-      style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}
+      className="grid grid-cols-[auto_1fr] items-center leading-tight gap-4 pt-6"
     >
-      <label>weight</label>
-      <MyInput
-        type="number"
-        value={property}
-        onChange={(e) => setProperty(e.target.value)}
-        placeholder="Type weight"
-      />
+      <span>
+        <label>weight</label>
+      </span>
+      <div>
+        <MyInput
+          className="w-full"
+          type="number"
+          value={property}
+          onChange={(e) => setProperty(e.target.value)}
+          placeholder="Type weight"
+          required
+        />
+      </div>
     </div>
   );
 });

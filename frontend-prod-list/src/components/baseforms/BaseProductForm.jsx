@@ -21,79 +21,79 @@ const BaseProductForm = () => {
   selectMap.get(state.selectedType);
 
   return (
-    <form id="product_form">
-      <div>
-        <fieldset style={{}}>
-          <div>
-            <div>
-              <label>SKU</label>
+    <form id="product_form" className="max-w-3xl items-center mx-auto">
+      <div className="grid grid-cols-[auto_1fr] items-center leading-tight gap-4">
+        <span>
+          <label>SKU</label>
+        </span>
+        <div>
+          <MyInput
+            className="w-full"
+            value={state.sku}
+            onChange={(e) => dispatch({ type: "sku", payload: e.target.value })}
+            type="text"
+            id="sku"
+            placeholder="SKU"
+            required
+          />
+          {state.validation && (
+            <div
+              className="validation"
+              style={{ width: "100px", height: "100px" }}
+            >
+              {state.validation ? state.validation : "qq"}
             </div>
-            <div>
-              <MyInput
-                value={state.sku}
-                onChange={(e) =>
-                  dispatch({ type: "sku", payload: e.target.value })
-                }
-                type="text"
-                id="sku"
-                placeholder="SKU"
-                required
-              />
-            </div>
-          </div>
+          )}
+        </div>
 
-          <div>
-            <div>
-              <label>Name</label>
-            </div>
-            <div>
-              <MyInput
-                value={state.name}
-                onChange={(e) =>
-                  dispatch({ type: "name", payload: e.target.value })
-                }
-                type="text"
-                id="name"
-                placeholder="Name"
-                required
-              />
-            </div>
-            <div class="validation"></div>
-          </div>
+        <span>
+          <label>Name</label>
+        </span>
+        <div>
+          <MyInput
+            className="w-full"
+            value={state.name}
+            onChange={(e) =>
+              dispatch({ type: "name", payload: e.target.value })
+            }
+            type="text"
+            id="name"
+            placeholder="Name"
+            required
+          />
+        </div>
+        <span>
+          <label>Price</label>
+        </span>
+        <div>
+          <MyInput
+            className="w-full"
+            value={state.price}
+            onChange={(e) =>
+              dispatch({ type: "price", payload: e.target.value })
+            }
+            type="text"
+            id="price"
+            placeholder="Price"
+            required
+          />
+        </div>
 
-          <div>
-            <div>
-              <span>
-                <label>Price</label>
-              </span>
-              <MyInput
-                value={state.price}
-                onChange={(e) =>
-                  dispatch({ type: "price", payload: e.target.value })
-                }
-                type="text"
-                id="price"
-                placeholder="Price"
-                required
-              />
-            </div>
-          </div>
-        </fieldset>
-      </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr" }}>
         <label for="productType">Product type:</label>
-        <MySelect
-          value={state.selectedType}
-          onChange={handleChangeType}
-          defaultValue="Product Type"
-          options={[
-            { value: "1", type: "Book", id: 1 },
-            { value: "2", type: "Disc", id: 2 },
-            { value: "3", type: "Furniture", id: 3 },
-          ]}
-        />
+        <div>
+          <MySelect
+            required
+            value={state.selectedType}
+            onChange={handleChangeType}
+            defaultValue="Product Type"
+            options={[
+              { value: "1", type: "Book", id: 1 },
+              { value: "2", type: "Disc", id: 2 },
+              { value: "3", type: "Furniture", id: 3 },
+            ]}
+          />
+        </div>
       </div>
-
       <div className="product_type__form">
         {selectMap.get(state.selectedType)}
       </div>
