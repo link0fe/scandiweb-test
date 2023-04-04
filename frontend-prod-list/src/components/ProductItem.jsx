@@ -18,7 +18,7 @@ const ProductItem = ({ product, children, prodType }) => {
             product.isChecked = event.target.checked;
           }}
         />
-        <label for={product.id}>
+        <label className="text-center" for={product.id}>
           <p>{product.sku}</p>
           <p>{product.name}</p>
           <p>{product.price}$</p>

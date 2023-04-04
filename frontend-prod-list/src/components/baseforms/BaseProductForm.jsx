@@ -22,7 +22,7 @@ const BaseProductForm = () => {
 
   return (
     <form id="product_form" className="max-w-3xl items-center mx-auto">
-      <div className="grid grid-cols-[auto_1fr] items-center leading-tight gap-4">
+      <div className="grid grid-cols-[1fr_4fr_1fr] items-center leading-tight gap-4">
         <span>
           <label>SKU</label>
         </span>
@@ -36,15 +36,17 @@ const BaseProductForm = () => {
             placeholder="SKU"
             required
           />
-          {state.validation && (
-            <div
-              className="validation"
-              style={{ width: "100px", height: "100px" }}
-            >
-              {state.validation ? state.validation : "qq"}
-            </div>
-          )}
         </div>
+        {state.validation ? (
+          <span
+            className="validation"
+            style={{ width: "100px", height: "100px" }}
+          >
+            {state.validation}
+          </span>
+        ) : (
+          <span>SKU should be unique</span>
+        )}
 
         <span>
           <label>Name</label>
@@ -62,6 +64,7 @@ const BaseProductForm = () => {
             required
           />
         </div>
+        {state.name ? <span>OK</span> : <span>type name</span>}
         <span>
           <label>Price</label>
         </span>
@@ -72,14 +75,19 @@ const BaseProductForm = () => {
             onChange={(e) =>
               dispatch({ type: "price", payload: e.target.value })
             }
-            type="text"
+            type="number"
             id="price"
             placeholder="Price"
+            min=".01"
+            step="0.01"
             required
           />
         </div>
+        {state.price ? <span>OK</span> : <span>price should be positive</span>}
 
-        <label for="productType">Product type:</label>
+        <label for="productType">
+          <span>Product type:</span>
+        </label>
         <div>
           <MySelect
             required
@@ -93,6 +101,8 @@ const BaseProductForm = () => {
             ]}
           />
         </div>
+
+        {state.selectedType ? "" : <span>select product type</span>}
       </div>
       <div className="product_type__form">
         {selectMap.get(state.selectedType)}

@@ -13,6 +13,7 @@ const Navbar = () => {
   const addNewProduct = async (e) => {
     e.preventDefault();
     const getTypeData = formRef.current.getFormData();
+    console.log(getTypeData);
 
     const newProduct = {
       sku: state.sku,

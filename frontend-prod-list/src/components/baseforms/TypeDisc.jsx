@@ -1,13 +1,14 @@
 import React, { forwardRef, useState, useImperativeHandle } from "react";
 import MyButton from "../UI/button/MyButton";
 import MyInput from "../UI/input/MyInput";
+import { storeContext } from "../../App";
 
 const TypeDisc = forwardRef((props, ref) => {
-  const [property, setProperty] = useState("");
+  const { state, dispatch } = React.useContext(storeContext);
 
   useImperativeHandle(ref, () => ({
     getFormData() {
-      return { property };
+      return { size: state.size };
     },
   }));
 
@@ -23,9 +24,11 @@ const TypeDisc = forwardRef((props, ref) => {
         <MyInput
           className="w-full"
           type="number"
-          value={property}
-          onChange={(e) => setProperty(e.target.value)}
+          value={state.size}
+          onChange={(e) => dispatch({ type: "size", payload: e.target.value })}
           placeholder="Type size (MB)"
+          min="0.01"
+          step="0.01"
           required
         />
       </div>

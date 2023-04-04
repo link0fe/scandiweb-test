@@ -36,8 +36,8 @@ body {
 }
 
 label {
-  font-size: 1vw;
   padding: 10px;
+  font-size: 1vw;
 }
 
 fieldset label {

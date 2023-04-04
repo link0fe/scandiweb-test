@@ -1,20 +1,19 @@
+import { storeContext } from "../../App";
 import MyInput from "../UI/input/MyInput";
-import React, { useState, forwardRef, useImperativeHandle } from "react";
+import React, { forwardRef, useImperativeHandle } from "react";
 
 const TypeFurniture = forwardRef((props, ref) => {
-  const [typeWidth, setTypeWidth] = useState("");
-  const [typeLength, setTypeLength] = useState("");
-  const [typeHeigth, setTypeHeigth] = useState("");
+  const { state, dispatch } = React.useContext(storeContext);
 
   const property = {
-    typeWidth,
-    typeLength,
-    typeHeigth,
+    width: state.width,
+    length: state.length,
+    height: state.height,
   };
 
   useImperativeHandle(ref, () => ({
     getFormData() {
-      return { property };
+      return { width: state.width, length: state.length, height: state.height };
     },
   }));
 
@@ -30,9 +29,11 @@ const TypeFurniture = forwardRef((props, ref) => {
         <MyInput
           className="w-full"
           type="number"
-          value={typeWidth}
+          value={state.width}
           placeholder="Type width"
-          onChange={(e) => setTypeWidth(e.target.value)}
+          onChange={(e) => dispatch({ type: "width", payload: e.target.value })}
+          min="0.01"
+          step="0.01"
           required
         />
       </div>
@@ -43,8 +44,12 @@ const TypeFurniture = forwardRef((props, ref) => {
         <MyInput
           className="w-full"
           type="number"
-          value={typeHeigth}
-          onChange={(e) => setTypeHeigth(e.target.value)}
+          value={state.height}
+          onChange={(e) =>
+            dispatch({ type: "height", payload: e.target.value })
+          }
+          min="0.01"
+          step="0.01"
           placeholder="Type height"
           required
         />
@@ -56,8 +61,12 @@ const TypeFurniture = forwardRef((props, ref) => {
         <MyInput
           className="w-full"
           type="number"
-          value={typeLength}
-          onChange={(e) => setTypeLength(e.target.value)}
+          value={state.length}
+          onChange={(e) =>
+            dispatch({ type: "length", payload: e.target.value })
+          }
+          min="0.01"
+          step="0.01"
           placeholder="Type length"
           required
         />

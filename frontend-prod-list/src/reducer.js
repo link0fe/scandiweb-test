@@ -4,6 +4,11 @@ export const initialState = {
   price: "",
   selectedType: "",
   validation: "",
+  weight: "",
+  size: "",
+  width: "",
+  length: "",
+  height: "",
   booksType: [],
   discsType: [],
   formRef: {},
@@ -60,6 +65,31 @@ export const reducer = (state, action) => {
       return {
         ...state,
         validation: action.payload,
+      };
+    case "size":
+      return {
+        ...state,
+        size: action.payload,
+      };
+    case "weight":
+      return {
+        ...state,
+        weight: action.payload,
+      };
+    case "width":
+      return {
+        ...state,
+        width: action.payload,
+      };
+    case "length":
+      return {
+        ...state,
+        length: action.payload,
+      };
+    case "height":
+      return {
+        ...state,
+        height: action.payload,
       };
     default:
       return state;

@@ -1,12 +1,14 @@
 import React, { useState, useImperativeHandle, forwardRef } from "react";
 import MyInput from "../UI/input/MyInput";
+import { storeContext } from "../../App";
 
 const TypeBook = forwardRef((props, ref) => {
-  const [property, setProperty] = useState("");
+  const { state, dispatch } = React.useContext(storeContext);
 
+  console.log(state.weight);
   useImperativeHandle(ref, () => ({
     getFormData() {
-      return { property };
+      return { weight: state.weight };
     },
   }));
   return (
@@ -21,9 +23,13 @@ const TypeBook = forwardRef((props, ref) => {
         <MyInput
           className="w-full"
           type="number"
-          value={property}
-          onChange={(e) => setProperty(e.target.value)}
+          value={state.weight}
+          onChange={(e) =>
+            dispatch({ type: "weight", payload: e.target.value })
+          }
           placeholder="Type weight"
+          min=".01"
+          step="0.01"
           required
         />
       </div>
